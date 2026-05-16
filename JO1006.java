@@ -81,7 +81,6 @@ public class JO1006 {
                 isVisited[cur_x][cur_y][rd] = true;
                 q.add(new int[]{cur_x, cur_y, rd, cur_count + 1});
             }
-
         }
         return 0;
     }
