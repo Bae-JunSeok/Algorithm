@@ -1,6 +1,10 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PG43164 {
+
+    static boolean[] isVisited;
+    static ArrayList<String> resultList;
     public static void main(String[] args) {
         PG43164 sol = new PG43164();
 
@@ -8,37 +12,46 @@ public class PG43164 {
     }
 
     public String[] solution(String[][] tickets){
-        ArrayList<Integer> num = new ArrayList<>();
-        ArrayList<String> name = new ArrayList<>();
+        isVisited = new boolean[tickets.length];
+        resultList = new ArrayList<>();
 
-        int n = 0;
+        ArrayList<String> path = new ArrayList<>();
+        path.add("ICN");
+
+        dfs("ICN", tickets, path, 0);
+
+        Collections.sort(resultList);
+
+        return resultList.get(0).split(" ");
+    }
+
+    public void dfs(String current, String[][] tickets, ArrayList<String> path, int count){
+        if(count == tickets.length){
+            StringBuilder sb = new StringBuilder();
+
+            for(int i = 0; i < path.size(); i++){
+                sb.append(path.get(i));
+
+                if(i != path.size() - 1){
+                    sb.append(" ");
+                }
+            }
+
+            resultList.add(sb.toString());
+            return ;
+        }
 
         for(int i = 0; i < tickets.length; i++){
-            for(int j = 0; j < 2; j++){
-                if(!name.contains(tickets[i][j])){
-                    name.add(tickets[i][j]);
-                    num.add(n++);
-                }
+            if(!isVisited[i] && tickets[i][0].equals(current)){
+                isVisited[i] = true;
+                path.add(tickets[i][1]);
+
+                dfs(tickets[i][1], tickets, path, count + 1);
+
+                isVisited[i] = false;
+                path.remove(path.size() - 1);
             }
         }
 
-        ArrayList<Integer>[] arr = new ArrayList[name.size()];
-        for(int i = 0; i < name.size(); i++){
-            arr[i] = new ArrayList<>();
-        }
-
-        boolean[] isVisited = new boolean[name.size()];
-
-        for(int i = 0; i < tickets.length; i++){
-            for(int j = 0; j < name.size(); j++){
-                if(tickets[i][0].equals(name.get(j))){
-                    
-                }
-            }
-        }
-
-
-
-        return new String[]{"hello"};
     }
 }
