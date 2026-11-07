@@ -65,7 +65,7 @@ public class PG17683 {
             }
             answer = titles.get(index);
         } else if(count == 0){
-            answer = "None";
+            answer = "(None)";
         } else if(count == 1){
             answer = titles.get(index);
         }
